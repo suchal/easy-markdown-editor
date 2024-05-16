@@ -12,7 +12,7 @@ require('codemirror/addon/search/searchcursor.js');
 require('codemirror/mode/gfm/gfm.js');
 require('codemirror/mode/xml/xml.js');
 var CodeMirrorSpellChecker = require('codemirror-spell-checker');
-const { Marked } = require('marked/lib/marked.cjs');
+const { Marked } = require('marked/marked.min');
 const marked = new Marked();
 // Some variables
 var isMac = /Mac/.test(navigator.platform);
