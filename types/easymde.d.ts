@@ -21,7 +21,7 @@
 
 /// <reference types="codemirror"/>
 
-import { marked } from 'marked';
+import { marked, MarkedOptions } from 'marked';
 
 interface ArrayOneOrMore<T> extends Array<T> {
     0: T;
@@ -101,7 +101,9 @@ declare namespace EasyMDE {
     interface RenderingOptions {
         codeSyntaxHighlighting?: boolean;
         hljs?: any;
-        markedOptions?: marked.MarkedOptions;
+        markedOptions?: MarkedOptions & {
+            highlight: (code: string, lang: string, callback?: (error: (any | undefined), code: string) => void) => string
+        };
         sanitizerFunction?: (html: string) => string;
         singleLineBreaks?: boolean;
     }

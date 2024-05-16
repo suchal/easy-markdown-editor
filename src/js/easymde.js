@@ -12,9 +12,8 @@ require('codemirror/addon/search/searchcursor.js');
 require('codemirror/mode/gfm/gfm.js');
 require('codemirror/mode/xml/xml.js');
 var CodeMirrorSpellChecker = require('codemirror-spell-checker');
-var marked = require('marked').marked;
-
-
+const { Marked } = require('marked/lib/marked.cjs');
+const marked = new Marked();
 // Some variables
 var isMac = /Mac/.test(navigator.platform);
 var anchorToExternalRegex = new RegExp(/(<a.*?https?:\/\/.*?[^a]>)+?/g);
@@ -2034,13 +2033,14 @@ EasyMDE.prototype.markdown = function (text) {
 
             /* Check if HLJS loaded */
             if (hljs) {
-                markedOptions.highlight = function (code, language) {
-                    if (language && hljs.getLanguage(language)) {
-                        return hljs.highlight(language, code).value;
-                    } else {
-                        return hljs.highlightAuto(code).value;
-                    }
-                };
+                const { markedHighlight } = require('marked-highlight');
+                marked.use(markedHighlight({
+                    langPrefix: 'hljs language-',
+                    highlight(code, lang) {
+                        const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+                        return hljs.highlight(code, { language }).value;
+                    },
+                }));
             }
         }
 
