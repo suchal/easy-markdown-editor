@@ -1,9 +1,10 @@
 {
     "compilerOptions": {
-        "target": "es3",
+        "target": "ES2020",
         "ignoreDeprecations": "5.0",
         "strict": true,
         "noImplicitReturns": true,
-        "noEmit": true
+        "noEmit": true,
+        "module": "CommonJS"
     }
 }
